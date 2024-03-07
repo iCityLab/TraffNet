@@ -3,7 +3,7 @@
 Implementation of paper - [TraffNet: Learning Causality of Traffic Generation for What-if Prediction](https://arxiv.org/abs/2303.15954)
 
 [![arxiv.org](http://img.shields.io/badge/cs.LG-arXiv%3A2303.15954-B31B1B.svg)](https://arxiv.org/abs/2303.15954)
-
+![./img/TraffNet.png](img/TraffNet.png)
 
 ## <div align="center">Documentation</div>
 

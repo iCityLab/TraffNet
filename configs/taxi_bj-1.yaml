@@ -1,0 +1,43 @@
+name: taxi_bj-1
+dataset:
+  data_path: ./datasets/taxi_bj/
+  window_width: 3
+  predict_len: 1
+  path_num: 473
+  edge_num: 81
+  train_split: 0.5
+  val_split: 0.3
+  test_split: 0.2
+  data_len: 3360
+train:
+  path_select:
+    epochs: 20
+    batch_size: 16
+    optimizer:
+      type: adam
+      learning_rate: 0.001
+    criterion: MSELoss
+  flow_predict:
+    epochs: 5
+    batch_size: 16
+    optimizer:
+      type: adam
+      learning_rate: 0.001
+    criterion: MSELoss
+device: cuda:0
+task: flow_predict
+# select from [path_select, flow_predict].
+path_select_pkl: ./results/path_select/taxi_bj-1(0)/model.pkl
+# when task is flow_predict, model will find the pretrain info from path_select_pkl.
+network:
+  # traffNet pretrain for path_select predict
+  path_select:
+    # [from, module, args]
+    - [ -1, PathInputEmbedding, [81, 48] ]
+    - [ -1, InnerPathModel, [50, 320, 2 ,81] ]
+    - [ -1, RouteSelectModel, [640, 1024, 2 ] ]
+
+
+  # traffnet train for flow predict
+  flow_predict:
+    - [ -1, TemporalGRU, [560, 1200, 2, 9, 16, 81, 1] ]

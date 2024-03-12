@@ -1,0 +1,41 @@
+name: sumo_demo-1
+dataset:
+  data_path: ./datasets/sumo_demo/
+  window_width: 9
+  predict_len: 1
+  path_num: 6
+  edge_num: 18
+  train_split: 0.6
+  val_split: 0.2
+  test_split: 0.2
+  data_len: 1440
+train:
+  path_select:
+    epochs: 50
+    batch_size: 16
+    optimizer:
+      type: adam
+      learning_rate: 0.001
+    criterion: MSELoss
+  flow_predict:
+    epochs: 5
+    batch_size: 16
+    optimizer:
+      type: adam
+      learning_rate: 0.001
+    criterion: MSELoss
+device: cuda:0
+task: flow_predict
+path_select_pkl: ./results/path_select/sumo_demo-1(0)/model.pkl
+network:
+  # TraffNet pretrain for path_select predict
+  path_select:
+    # [from, module, args]
+    - [ -1, PathInputEmbedding, [ 18, 48 ] ]
+    - [ -1, InnerPathModel, [ 53, 280, 2 , 18 ] ]
+    - [ -1, RouteSelectModel, [ 560, 1024, 2 ] ]
+
+
+  # TraffNet train for flow predict
+  flow_predict:
+    - [ -1, TemporalGRU, [ 560, 1200, 2, 9, 16, 254, 1 ] ]

@@ -1,4 +1,4 @@
-# Official TraffNet
+# Official TraffNet v1
 
 Implementation of paper - [TraffNet: Learning Causality of Traffic Generation for What-if Prediction](https://arxiv.org/abs/2303.15954)
 
@@ -14,6 +14,8 @@ See below for a quickstart installation and usage example for TraffNet.
 
 We recommend installing  all the packages contained in the requirements file under python>=3.8 and CUDA 11.8.
 ```bash
+conda create -n traffnet python==3.8
+conda activate traffnet
 pip install -r ./requirements.txt
 ```
 
@@ -22,7 +24,7 @@ pip install -r ./requirements.txt
 <details open>
 <summary>Datasets</summary>
 
-Create a folder under the datasets folder with the name of the data and put the constructed data in it. See this repository for the data construct process [trip-graph-construction](https://github.com/iCityLab/trip-graph-construction).
+Create a folder under the datasets folder with the name of the data and put the constructed data in it. See this repository for the data construct process [trip-graph-construction](https://github.com/iCityLab/trip-graph-construction). Or download the processed data from this [link]().
 ```
 TraffNet
 └──datasets
